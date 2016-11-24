@@ -1,0 +1,456 @@
+<apex:page controller="ManageQuestionsController" tabStyle="CCA2_Goal__c" id="pg">
+<link rel="stylesheet" href="{!URLFOR($Resource.jquerytreeview,'jquery.treeview.css')}" />
+<link rel="stylesheet" href="{!URLFOR($Resource.jquerytreeview,'screen.css')}" />
+<script src="{!URLFOR($Resource.jquerytreeview,'jquery.js')}"></script>
+<script src="{!URLFOR($Resource.jquerytreeview,'jquery.cookie.js')}" type="text/javascript"></script>
+<script src="{!URLFOR($Resource.jquerytreeview,'jquery.treeview.js')}" type="text/javascript"></script>
+<script type="text/javascript">
+    function treeViewFun(){
+        $("#black").treeview({
+            //control: "#treecontrol",
+            persist: "cookie",
+            cookieId: "treeview-black"
+        });
+    }
+</script>
+
+<apex:stylesheet value="{!URLFOR($Resource.jqueryUi, 'themes/jquery-ui.theme.css')}"/>
+<apex:stylesheet value="{!URLFOR($Resource.jqueryUi, 'themes/jquery-ui.theme.min.css')}"/>
+<apex:stylesheet value="{!URLFOR($Resource.jqueryUi, 'themes/jquery-ui.structure.min.css')}"/>
+<apex:stylesheet value="{!URLFOR($Resource.jqueryUi, 'themes/jquery-ui.structure.css')}"/>
+<apex:stylesheet value="{!URLFOR($Resource.jqueryUi, 'themes/jquery-ui.min.css')}"/>
+
+<!--<link rel="stylesheet" href="{!URLFOR($Resource.jqueryUi, 'themes/base/jquery.ui.all.css')}"/>-->
+<script src="{!URLFOR($Resource.jqueryUi, 'jquery-1.10.2.js')}"></script>
+<script src="{!URLFOR($Resource.jqueryUi, 'ui/jquery.ui.core.js')}"></script>
+<script src="{!URLFOR($Resource.jqueryUi, 'ui/jquery.ui.widget.js')}"></script>
+<script src="{!URLFOR($Resource.jqueryUi, 'ui/jquery.ui.mouse.js')}"></script>
+<script src="{!URLFOR($Resource.jqueryUi, 'ui/jquery.ui.sortable.js')}"></script>
+<script src="{!URLFOR($Resource.jqueryUi, 'ui/jquery.ui.draggable.js')}"></script>
+<script src="{!URLFOR($Resource.jqueryUi, 'ui/jquery.ui.position.js')}"></script>
+<script src="{!URLFOR($Resource.jqueryUi, 'ui/jquery.ui.resizable.js')}"></script>
+<script src="{!URLFOR($Resource.jqueryUi, 'ui/jquery.ui.button.js')}"></script>
+<script src="{!URLFOR($Resource.jqueryUi, 'ui/jquery.ui.dialog.js')}"></script>
+<script>
+    $.noConflict();
+    jQuery(document).ready(function($) {
+        var dlog1 = $( "#Question_PopUp" ).dialog({
+            autoOpen: false,
+            height: 'auto',
+            width: '700px',
+            dialogClass: 'diaClass',
+            close:function (event, ui){
+                      $("#disableDiv").hide();
+                  }
+        });
+        dlog1.parent().appendTo("#pg\\:frm");
+        hoverFun();
+    });
+    
+    function hoverFun(){
+        $("#questionLi li").hover(function(){
+            var v = $(this).attr("id");
+            $(this).css('background-color','#e3f3ff');
+            $(this).find("."+v).show();
+        },function() {
+            var v = $(this).attr("id");
+            $(this).css('background-color','white');
+            $(this).find("."+v).hide();
+        });
+    }
+    
+    function addQuestion(isAdd, catName, qId, qText, qDes, qType, qGate, qSeq, GoalScorRange){
+        if(isAdd){
+            callfillAnsList(qId);
+            
+            jQuery(".qusId").val(qId);
+            jQuery(".qusCateg").text(catName);
+            
+            while(qText.indexOf('&#39;') > 0){
+               qText = qText.replace('&#39;','\'');
+            }
+            while(qText.indexOf('&#47;') > 0){
+               qText = qText.replace('&#47;','/');
+            }
+            jQuery(".qusText").val(qText);
+            while(qDes.indexOf('&#39;') > 0){
+                qDes = qDes.replace('&#39;','\'');                
+            }
+            while(qDes.indexOf('&#47;') > 0){
+                qDes = qDes.replace('&#47;','/');                
+            }
+            jQuery(".qusDes").val(qDes);
+            
+            jQuery(".qusType").val(qType);
+            jQuery(".qusGate").val(qGate);
+            jQuery(".qusSeq").val(qSeq);
+            
+            var gss = GoalScorRange.split('*#*');
+            jQuery(".RecomGoalScoreRange").val(gss[0]);
+            jQuery(".goalQusId").val(gss[1]);
+            jQuery("#Question_PopUp").dialog({ title: "Manage Question" });
+            
+            $(".ansQuesId").each(function(){
+                $(this).val(qId);
+            });
+        }else{
+            callInitAnsList();
+            
+            jQuery(".qusId").val('');
+            jQuery(".qusCateg").val(catName);
+            jQuery(".qusText").val('');
+            jQuery(".qusDes").val('');
+            jQuery(".qusType").val('Text');
+            jQuery(".qusGate").val('');
+            jQuery(".qusSeq").val('');
+            jQuery(".RecomGoalScoreRange").val('');
+            jQuery(".goalQusId").val('');
+            jQuery("#Question_PopUp").dialog({ title: "Add Question" });
+        }
+        if(catName!=''){
+            jQuery(".qusCategText").hide();
+            jQuery(".qusCateg").show();
+        }else{
+            jQuery(".qusCategText").show();
+            jQuery(".qusCateg").hide();
+        }
+    }
+    
+    function createQuestion(){
+        var qId = jQuery(".qusId").val();
+        var qCateg = jQuery(".qusCateg").text();
+        if(qCateg==''){
+            qCateg = jQuery(".qusCategText").val().trim();
+        }
+        var qText = jQuery(".qusText").val().trim();
+        var qDes = jQuery(".qusDes").val();
+        var qType = jQuery(".qusType").val();
+        var qGate = jQuery(".qusGate").val();
+        var qSeq = jQuery(".qusSeq").val();
+        var GoalScrRange = jQuery(".RecomGoalScoreRange").val();
+        var goalQusId = jQuery(".goalQusId").val();
+        var golId = '{!goal.Id}';
+        
+        if(qText.trim()){
+            if(qText.trim().length<=80){
+                if(qSeq.trim()){
+                    jQuery("#myDisableDiv").show();
+                    Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.ManageQuestionsController.createQuestion}', qId, qCateg, qText, qDes, qType, qGate, qSeq, GoalScrRange, golId, goalQusId,
+                        function(result, event){
+                            jQuery("#myDisableDiv").hide();
+                            //alert(event.status);
+                            if(event.status){
+                                callcreateAnswer(result.Id, goalQusId);
+                            }else{
+                                if(event.message.contains('DUPLICATE_VALUE')){
+                                    alert('Duplicate sequence number.');
+                                }else{
+                                    alert(event.message); 
+                                }
+                            } 
+                        }
+                    );
+                    jQuery("#disableDiv").hide();
+                    jQuery("#Question_PopUp").dialog("close");
+                }else{
+                    alert('You must enter a value in sequence.');
+                }
+            }else{
+                alert('Question Text must be less than 80 characters.');
+            }
+        }else{
+            alert('You must enter a value in Question Text.');
+        }
+    }
+    
+    function openDiv(){
+        jQuery("#disableDiv").show();
+        jQuery("#Question_PopUp").dialog("open");
+    }
+    
+    function closeDiv(){
+        jQuery("#disableDiv").hide();
+        jQuery("#Question_PopUp").dialog("close");
+    }
+    
+    function callQustType(){
+        if(jQuery(".qusType").val() == 'Text'){
+            jQuery("#answerTbl").hide();
+            jQuery(".AnsQusType").val('Text');
+            jQuery(".TextTr").show();
+            return false;
+        }
+        if(jQuery(".qusType").val() == 'Picklist'){
+            jQuery("#answerTbl").show();
+            jQuery(".pickListTd").show();
+            jQuery(".numberTd").hide();
+            jQuery(".TextTr").hide();
+            jQuery(".AnsQusType").val('Picklist');
+            return false;
+        }
+        if(jQuery(".qusType").val() == 'Number'){
+            jQuery("#answerTbl").show();
+            jQuery(".numberTd").show();
+            jQuery(".pickListTd").hide();
+            jQuery(".TextTr").hide();
+            jQuery(".AnsQusType").val('Number');
+            return false;
+        }
+    }
+    function check(e,value){
+        var unicode=e.charCode? e.charCode : e.keyCode;
+        if((unicode >=48 && unicode <= 57 ||unicode ==8 || unicode ==45 || unicode==46)){
+            return true;
+        }
+        return false;
+    }
+</script>
+<style>
+    .buttonclass{
+        background-image: -webkit-linear-gradient(top,#428bca 0,#2d6ca2 100%) !important;
+        background-image: -o-linear-gradient(top,#428bca 0,#2d6ca2 100%) !important;
+        background-image: -webkit-gradient(linear,left top,left bottom,from(#428bca),to(#2d6ca2)) !important;
+        background-image: linear-gradient(to bottom,#428bca 0,#2d6ca2 100%) !important;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff428bca', endColorstr='#ff2d6ca2', GradientType=0) !important;
+        color: #FFF !important;
+        padding: 10PX !important;
+    }
+    .formclass{
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 14px;
+        color: #333;
+        background-color: #fff;
+    }
+    .btn:hover{
+        background-position: 0 !important;
+        color:white;
+    }
+    #Question_PopUp input, textarea, select, .seqField{
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        height: 25px;
+    }
+    #Question_PopUp input:focus, textarea:focus, select:focus, .seqField:focus{
+        border-color: #66afe9;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+        outline:0 none;
+    }
+
+    #disableDiv{
+        width:100%;
+        height:100%;
+        top:0px;
+        left:0px;
+        position:fixed;
+        z-index:500;
+        background:#000;
+        opacity:0.4;
+        display:none;
+    }
+    .diaClass{
+        z-index:1000;
+    }
+    
+    .dv_load{
+        top: 45%;
+        margin-left:25%;
+        padding: 15px;
+        z-index: 20000;
+        position: fixed;
+        width: 20%;
+        background-color: #ccd8e7;
+        border: 5px solid #afc3e0;
+        color: #394057;
+    }
+    #black li{
+        min-height:25px;
+        height:auto;
+    }
+    .bPageTitle h1, h2{
+        padding:0px;
+    }
+    .message {
+        width: 50%;
+    }
+</style>
+<apex:form id="frm" styleClass="formclass">
+    <apex:sectionHeader title="{!goal.Name}" subtitle="Questions"/>
+    <div id="myDisableDiv" style="display:none;">
+        <div style="width: 100%; height:700px; background:#000; opacity : 0.7; top:0px; left:0px; position: fixed; z-index:10000"></div>
+        <div class="dv_load">
+            <img src="/img/loading24.gif" style="vertical-align:middle;"/>
+            <span style="margin-left: 10px; font-size: 12px; font-weight: bold; color: #000000;">Loading...</span>
+        </div>
+    </div>
+    <apex:actionStatus id="status">
+        <apex:facet name="start">
+            <div style="width: 100%; height:700px; background:#000; opacity : 0.7; top:0px; left:0px; position: fixed; z-index:10000"></div>
+            <div class="dv_load">
+                <img src="/img/loading24.gif" style="vertical-align:middle;"/>
+                <span style="margin-left: 10px; font-size: 12px; font-weight: bold; color: #000000;">Loading...</span>
+            </div>
+        </apex:facet>
+    </apex:actionStatus>
+    <apex:actionFunction name="callInitAnsList" action="{!InitAnsList}" status="status" reRender="ansOpp" oncomplete="openDiv();callQustType();"/>
+    <apex:actionFunction name="callcreateAnswer" action="{!createAnswer}" status="status" reRender="listPanel" oncomplete="treeViewFun();">
+        <apex:param name="QusId" value="" assignTo="{!createdQusId}"/>
+        <apex:param name="gQusId" value="" assignTo="{!goalQuesId}"/>
+    </apex:actionFunction>
+    <apex:actionFunction name="callfillAnsList" action="{!fillAnsList}" status="status" reRender="ansOpp" oncomplete="openDiv();callQustType();">
+        <apex:param name="qusId" value="" assignTo="{!updatedQusId}"/>
+    </apex:actionFunction>
+    <apex:actionFunction name="callfetchQuestions" action="{!fetchQuestions}" status="status" reRender="listPanel" oncomplete="treeViewFun();hoverFun();"/>
+    <apex:pageMessage rendered="{!!isgoalId}" strength="3" severity="info" summary="Goal Id Not Found."></apex:pageMessage>
+    <apex:pageBlock rendered="{!isgoalId}">
+        <apex:pageBlockButtons >
+            <apex:commandButton styleClass="buttonclass" value="Return to Goal" action="{!cancel}"/>
+        </apex:pageBlockButtons>
+        <span style="float:right;">
+            Gate: &nbsp;&nbsp;
+            <apex:selectList style="width:50px;" value="{!questionGateValue}" size="1" onchange="callfetchQuestions();">
+                <apex:selectOptions value="{!Gatevalues}"/>
+            </apex:selectList>
+        </span>
+        <apex:outputPanel id="errorOp">
+            <apex:pageMessages ></apex:pageMessages>
+        </apex:outputPanel>
+        <span style="float:left;">
+            <apex:commandButton value="Add Question" onclick="addQuestion(false,'');return false;"/>
+            <apex:commandButton value="Re-order Questions" action="{!reOrderQuestions}" status="status" reRender="listPanel, errorOp" oncomplete="treeViewFun();hoverFun();"/>
+        </span>
+        <apex:outputPanel styleClass="opp" style="display:none;">
+            <div id="main">
+                <apex:outputPanel id="listPanel">
+                    <ul id="black" class="treeview-black" style="margin: 20px 0 0;">
+                        <li>
+                            <div><span>Questions</span></div>
+                            <ul id="questionLi" style="margin:1%;">
+                                <apex:repeat value="{!QuestionModelList}" var="qus">
+                                    <li style="border-bottom:1px solid #ccc;" id="{!qus.Id}">
+                                        <apex:inputText styleClass="seqField" value="{!QuestionSequenceMap[qus.Id]}" style="height:25px;width:25px;"/>
+                                        <span style="font-weight:{!IF(qus.haveGoalQus,'bold','normal')};"><a style="text-decoration:none;color:{!IF(qus.haveGoalQus,'#007600','black')};" href="/apex/QuestionDetails?id={!qus.id}"><apex:outputText value="{!qus.questionText}" escape="false"/></a></span>
+                                        <span Class="{!qus.Id}" style="float:right;margin-right:15%;display:none;">
+                                            <apex:commandButton value="Manage Question" onclick="addQuestion(true,'{!qus.questionCateg}','{!qus.id}','{!qus.questionText}','{!qus.questionDes}','{!qus.questionType}','{!qus.questionGate}','{!qus.questionSequence}','{!qus.RecomGoalScoreRange}');return false;"/>
+                                            <!--<apex:commandButton action="{!removeQuestion}" value="Remove" status="status" reRender="listPanel" style="display:{!IF(qus.haveGoalQus,'','none')}" oncomplete="treeViewFun();hoverFun();">
+                                                <apex:param name="removQusId" value="{!qus.Id}" assignTo="{!removeQusId}"/>
+                                            </apex:commandButton>-->                                         
+                                        </span>
+                                    </li>
+                                </apex:repeat>
+                            </ul>
+                        </li>
+                    </ul>
+                </apex:outputPanel>
+            </div>
+      
+            <div id="disableDiv"></div>
+            <div id="Question_PopUp">
+                <center>
+                    <table style="width:100%;">
+                        <tr style="display:none;">
+                            <td>Question Id: </td>
+                            <td><apex:inputText styleClass="qusId" style="width:95%"/></td>
+                        </tr>
+                        <tr>
+                            <td style="width:150px;">Category: </td>
+                            <td>
+                                <apex:outputText styleClass="qusCateg" style="width:95%"/>
+                                <apex:inputText styleClass="qusCategText" style="width:95%" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Question Text : </td>
+                            <td><apex:inputText styleClass="qusText" style="width:95%" /></td>
+                        </tr>
+                        <tr>
+                            <td>Description : </td>
+                            <td><apex:inputTextarea styleClass="qusDes" style="width:95%;height:100px;"/></td>
+                        </tr>
+                        <tr>
+                            <td>Question Type : </td>
+                            <td>
+                                <apex:selectList onchange="callQustType();" style="width:96%" styleClass="qusType" size="1">
+                                    <apex:selectOption itemLabel="Text" itemValue="Text"/>
+                                    <apex:selectOption itemLabel="Picklist" itemValue="Picklist"/>
+                                    <apex:selectOption itemLabel="Number" itemValue="Number"/>
+                                </apex:selectList>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Gate: </td>
+                            <td><apex:inputText onKeypress="return check(event,value)" styleClass="qusGate" style="width:30%"/></td>
+                        </tr>
+                        <tr>
+                            <td>Sequence: </td>
+                            <td><apex:inputText onKeypress="return check(event,value)" styleClass="qusSeq" style="width:30%"/></td>
+                        </tr>
+                        <tr class="TextTr">
+                            <td>Recommended goal<br/>score range : </td>
+                            <td>
+                                <apex:inputText styleClass="RecomGoalScoreRange" style="width:95%"/>
+                                <apex:inputText styleClass="goalQusId" style="display:none;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                              <apex:outputPanel id="ansOpp">
+                                <table id="answerTbl" border="0" style="border-collapse:collapse;width:100%;">
+                                    <tr style="border:1px solid #3C83BF;background-color:#3C83BF;color:white;">
+                                        <th style="width:13%;padding-left: 10px;">Position</th>
+                                        <th class="pickListTd" style="">Answer</th>
+                                        <th class="numberTd" style="">Low</th>
+                                        <th class="numberTd" style="">High</th>
+                                        <th style="width:15%;">Goal Value</th>
+                                        <th style="width:10%;">Exclude</th>
+                                        <th ></th>
+                                    </tr>
+                                    <apex:repeat value="{!AnswerModelList}" var="ans">
+                                        <tr>
+                                            <td style="vertical-align:middle;padding-left: 10px;"><apex:inputText onKeypress="return check(event,value)" value="{!ans.answer.Position__c}" style="width:35%;"/></td>
+                                            <td class="pickListTd" style="vertical-align:middle;"><apex:inputText value="{!ans.answer.PicklistResponse__c}" style="width:95%;"/></td>
+                                            <td class="numberTd" style="vertical-align:middle;"><apex:inputText onKeypress="return check(event,value)" value="{!ans.answer.Low_Value__c}" styleClass="LowVal" style="width:80%;"/></td>
+                                            <td class="numberTd" style="vertical-align:middle;"><apex:inputText onKeypress="return check(event,value)" value="{!ans.answer.High_Value__c}" styleClass="HighVal" style="width:80%;"/></td>
+                                            <td style="vertical-align:middle;"><apex:inputText onKeypress="return check(event,value)" value="{!ans.goalScorestr}" styleClass="goalScore" style="width:30%;"/></td>
+                                            <td style="vertical-align:middle;text-align:center;"><apex:inputCheckbox value="{!ans.isExclude}"/></td>
+                                            <td style="display:none;"><apex:inputText value="{!ans.answer.Question__c}" styleClass="ansQuesId" style="width:96%;"/></td>
+                                            <td style="display:none;"><apex:inputText value="{!ans.qusType}" styleClass="AnsQusType" style="width:96%;"/></td>
+                                            <td>
+                                                <apex:commandButton value="Remove" action="{!removeAns}" style="border-radius:10px;font-size:10px;font-family:Arial,Helvetica,sans-serif;float:right;margin:0px;" status="status" reRender="ansOpp" oncomplete="callQustType();">
+                                                    <apex:param name="abc" value="{!ans.index}" assignTo="{!removeR}"/>
+                                                </apex:commandButton>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6" style="padding-left: 10px;">
+                                                <b>Answer Details</b><br/>
+                                                <apex:inputTextarea value="{!ans.answer.Answer_Details__c}" style="width:98%;height:50px;"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="7" style="height:20px;"></td>
+                                        </tr>
+                                    </apex:repeat>
+                                    <tr>
+                                        <td colspan="5">
+                                            <apex:commandButton value="Add Answer" action="{!addAns}" style="border-radius:10px;font-size:10px;font-family:Arial,Helvetica,sans-serif;margin:0px;" status="status" reRender="ansOpp" oncomplete="callQustType();"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                              </apex:outputPanel>
+                            </td>
+                        </tr>
+                    </table>
+                    <apex:commandButton styleClass="buttonclass" value="Save" style="height:auto;" onclick="createQuestion();return false;"/>
+                    <apex:commandButton styleClass="buttonclass" value="Cancel" style="height:auto;" onclick="closeDiv();return false;"/>
+                </center>
+            </div>
+        </apex:outputPanel>
+    </apex:pageBlock>
+</apex:form>
+<script>
+    jQuery(document).ready(function($){
+        $(".opp").show();
+        treeViewFun();
+    });
+</script>
+</apex:page>

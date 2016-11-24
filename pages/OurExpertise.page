@@ -1,0 +1,58 @@
+<apex:page sidebar="false" showHeader="false" controller="SiteExpertiseController">
+    <c:SiteHeader vfname="ourexpertise"></c:SiteHeader>
+    <style>
+        .selectedDiv{
+            padding:5px;
+            background-color:Orange;
+            border:1px solid gray;
+        }
+        .normalDiv{
+            padding:5px;
+            background-color:#e6e6e6;
+            border:1px solid gray;
+        }
+        .css-arrow-right {
+            border-color:transparent transparent transparent #333333;
+            border-style:solid;
+            border-width:10px 0 10px 20px;
+            float:left;
+            height:0;
+            margin:0 10px;
+            width:0;
+        }
+    </style>
+  <!--  </div> -->
+    <div id="main" style="padding:0px;">
+        <div class="inside">
+            <table style="color:#64584C;font-family:Tahoma;padding:20px;">
+              <tr>
+                  <td style="text-align:left;width:250px;vertical-align:top;">
+                      <!-- Left Heading Sections -->
+                      <apex:repeat value="{!allExpertise}" var="exp">
+                          <div onClick="redirectToPage('{!exp.Id}');" style="cursor:pointer;" class="{!IF(selectedId=exp.Id,'selectedDiv','normalDiv')}">
+                              <b>{!exp.Name}</b><br/>
+                              <span style="font-size:12px;">{!exp.Tag__c}</span> 
+                          </div>
+                          <br/>
+                      </apex:repeat>
+                  </td>
+                  <td style="width:20px;">
+                  </td>
+                  <td style="text-align:left;vertical-align:top;">
+                      <!-- Right Details Section -->
+                      <h3 style="margin:0px;">{!selectedExpertise.Name}</h3>
+                      <p class="text" style="padding:0px;">{!selectedExpertise.Tag__c}</p>
+                      <p style="text-align:justify"><apex:outputText value="{!details}" escape="false" /></p>
+                  </td>
+              </tr>
+            </table>
+            <hr/>
+          </div>
+     </div>
+     <script>
+         function redirectToPage(pageid){
+             window.location.href='/apex/OurExpertise?id=' + pageid;
+         }
+     </script>
+     <c:SiteFooter / >
+</apex:page>

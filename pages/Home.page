@@ -1,0 +1,41 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" controller="SiteHomeController">
+   
+    <c:SiteHeader vfname="home"></c:SiteHeader>
+     <style>
+        body{
+            margin:0px;
+        }
+    </style>
+    <img src="{!URLFOR($Resource.theforcesolutionimages,'theforcesolutionimages/picture.jpg')}" alt="" width="980" height="333" class="pic" />
+    </div>
+     <div id="blocks">
+        <div class="inside">
+            <table>
+            <tr>
+            <td>
+            <div class="block1" style="text-align:left;clear:both">
+                <h3 style="margin-top:0px;">{!firstColumn.Name}</h3>
+                <span style="margin-right:2px;">{!firstColumn.Tag__c}</span>
+                <a href="/apex/ourexpertise?id={!firstColumn.Id}"><img src="{!URLFOR($Resource.theforcesolutionimages,'theforcesolutionimages/more.gif')}" alt="" width="70" height="17" /></a>
+            </div>
+            </td>
+            <td>
+            <div class="block2" style="text-align:left;clear:both">
+                <h3 style="margin-top:0px;">{!middleColumn.Name}</h3>
+                <span style="margin-right:2px;">{!middleColumn.Tag__c}</span>
+                <a href="/apex/ourexpertise?id={!middleColumn.Id}"><img src="{!URLFOR($Resource.theforcesolutionimages,'theforcesolutionimages/more.gif')}" alt="" width="70" height="17" /></a>
+            </div>
+            </td>
+            <td>
+            <div class="block3" style="text-align:left;clear:both">
+                <h3 style="margin-top:0px;">{!lastColumn.Name}</h3>
+                <span style="margin-right:2px;">{!lastColumn.Tag__c}</span>
+                <a href="/apex/ourexpertise?id={!lastColumn.Id}"><img src="{!URLFOR($Resource.theforcesolutionimages,'theforcesolutionimages/more.gif')}" alt="" width="70" height="17" /></a>
+            </div>
+            </td> 
+            </tr>
+            </table>
+        </div>
+     </div>
+    <c:SiteFooter / >
+</apex:page>

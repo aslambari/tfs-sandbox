@@ -1,0 +1,20 @@
+<apex:page id="pg" tabStyle="Application__c" controller="ApplicationResultController">
+    <apex:sectionHeader title="Goal Report for Application" subtitle="{!appName}" />
+    <apex:form id="frm">        
+        <apex:pageBlock id="pb" title="">
+            <apex:pageMessages ></apex:pageMessages>
+            <apex:pageBlockSection id="pbs">
+                <apex:chart height="400" width="700" data="{!Data}">
+                    <apex:axis minimum="0" type="Numeric" position="left" fields="percentageScore" 
+                        title="Score %" grid="true"/>
+                    <apex:axis type="Category" position="bottom" fields="goalName" 
+                        title="Goals"/>
+                    <apex:barSeries orientation="vertical" axis="left" 
+                        xField="goalName" yField="percentageScore">
+                        <apex:chartTips height="25" width="200"/>
+                    </apex:barSeries>
+                </apex:chart>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

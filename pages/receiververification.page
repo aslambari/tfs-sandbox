@@ -1,0 +1,184 @@
+<apex:page standardStylesheets="false" controller="HomeController" action="{!initForReceiverVerification}" showHeader="false" cache="false" sidebar="false">
+<c:RAOC_Header > </c:RAOC_Header>
+<title>Receiver Verification</title>
+<script>
+   function showRejectDialog(){
+       document.getElementById("errorReject").style.display='none';
+       $("#myModalreject").modal({                    // wire up the actual modal functionality and show the dialog
+          "backdrop"  : "static",
+          "keyboard"  : true,
+          "show"      : true                     // ensure the modal is shown immediately
+        });
+   }
+   function hideRejectDialog(){
+       $("#myModalreject").modal('hide'); 
+   }
+   function reject(){
+       var rta = document.getElementById("j_id0:frm:rejectarea").value.length;
+       if( parseInt(rta) > 5 ){
+           hideRejectDialog();
+           rejectReceiver();
+           return true;
+       }
+       document.getElementById("errorReject").style.display='block';
+       return false;
+   }
+   function showImage(id){
+       document.getElementById("imageid").src="/servlet/servlet.FileDownload?file="+id;
+       $("#myModalimg").modal({                    // wire up the actual modal functionality and show the dialog
+          "backdrop"  : "static",
+          "keyboard"  : true,
+          "show"      : true                     // ensure the modal is shown immediately
+        });
+   }
+   function hideImage(){
+        $("#myModalimg").modal('hide'); 
+   }
+</script>
+<apex:form id="frm">
+<apex:actionFunction action="{!rejectTheReceiver}" name="rejectReceiver"/>
+<div class="container-fluid"  style="padding:2% 5% ;background-color:#FFF">  
+    <div class="row" >
+        <div class="col-md-6 col-md-offset-3">   
+        <h2 style="color:#B3262C">Receiver Information</h2>                
+            <div class="row" >
+                <div class="col-md-6"> 
+                    <b>Name </b> 
+                </div>
+                <div class="col-md-6">
+                    {!listPerson[0].name}
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-md-6"> 
+                    <b>Reddit Username</b> 
+                </div>
+                <div class="col-md-6">
+                    {!listPerson[0].reddit_username__c}
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-md-6"> 
+                    <b>E-Mail</b> 
+                </div>
+                <div class="col-md-6">
+                    {!listPerson[0].email__c}
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-md-6"> 
+                    <b>Phone</b> 
+                </div>
+                <div class="col-md-6">
+                    {!listPerson[0].phone__c}
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-md-6"> 
+                    <b>Notes To The Moderators</b> 
+                </div>
+                <div class="col-md-6">
+                    {!listPerson[0].Notes_to_the_Moderators__c}
+                </div>
+            </div>
+        </div> 
+    </div> 
+           
+    
+    <div class="row" >
+        <div class="col-md-6 col-md-offset-3"   >  
+            <h2 style="color:#B3262C">Childs</h2>                 
+            <div class="table-responsive">                            
+                <table class="table">
+                  <tr style="background-color:#2A94D6"> 
+                      <th style='color:#fff'>S.No.</th>
+                      <th style='color:#fff'>Name</th> 
+                      <th style='color:#fff'>Age</th>
+                      <th style='color:#fff'>Wishlist URL</th>
+                  </tr>
+                  <apex:repeat value="{!childList_P}" var="clm">
+                  <tr> 
+                      <td>{!clm.index}</td>
+                      <td>{!clm.childObj.name}</td> 
+                      <td>{!clm.childObj.Age__c}</td> 
+                      <td><a target="_blank" href="{!clm.childObj.Wishlist_URL__c}" >{!clm.childObj.Wishlist_URL__c}</a></td>    
+                  </tr> 
+                  </apex:repeat>
+                </table>
+            </div> 
+        </div> 
+    </div>  
+
+    <div class="row" >                     
+        <div class="col-md-6 col-md-offset-3">
+            <h3 class="h2" >Child's Images ({!totalImages })</h3>
+            <div> 
+                <apex:repeat value="{!listAtt }" var="att">
+                    <div style="float:left;margin-left:10px;">
+                        <img title="Click here to see full image" onclick="showImage('{!att.id}');" style="width:100px;height: 100px;cursor:pointer;border-radius: 9px;" src="/servlet/servlet.FileDownload?file={!att.id}" />
+                    </div>
+                </apex:repeat>
+            </div>
+        </div>    
+    </div>
+    
+    <div class="row" >                     
+        <div class="col-md-6 col-md-offset-3">
+            <apex:commandButton styleClass="btn btn-success" action="{!verifyTheReceiver}" value="Approve" style="margin-top:10px;"/>
+            <apex:commandButton styleClass="btn btn-danger" onclick="showRejectDialog(); return false" value="Reject" style="margin-left:10px;margin-top:10px;"/>
+        </div>    
+    </div>
+
+</div>
+
+<div id='myModalreject' class='modal fade'>
+    <div class='modal-dialog' style='padding-top: 5%' >
+        <div class='modal-content' >
+            <div class='modal-body'>
+                <button type='button' class='close' onclick="hideRejectDialog();" >&times;</button>
+                <h3 style="color:#B3262C">Reason Of Rejection</h3>
+                <br/>
+                <table style="width:100%">
+                    <tr>
+                        <td style="color:red;">
+                            <font style="display:none;margin-bottom: 10px;" id="errorReject">Error : <br/>Your reason should be 5 character long</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:inputTextarea id="rejectarea" value="{!rejectionReason}" style="width:100%;height:100%;width: 100%;border-radius: 5px;resize: none;height: 150px;border-color:#B3262C" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <input  type='button' Class="btn btn-danger" value="Submit" onclick="reject();" style="margin-top:10px;"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id='myModalimg' class='modal fade'>
+        <div class='modal-dialog' style='padding-top: 5%' >
+            <div class='modal-content' >
+                <div class='modal-body'>
+                <table style="width:100%;">
+                    <tr>
+                        <td align="right">
+                            <button type='button' class='close' onclick="hideImage();" >&times;</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <img id="imageid" style="height: 200px;width:auto;" src="" />
+                        </td>
+                    </tr>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</apex:form>
+</apex:page>

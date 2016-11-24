@@ -1,0 +1,26 @@
+<apex:page controller="AppsByGoalController" tabStyle="Application__c">
+<apex:sectionHeader title="{!goalName}" subtitle="Application Goal Report"/>
+<apex:pageBlock >
+    <apex:pageMessages ></apex:pageMessages>
+    <apex:pageBlockSection id="pbs" columns="1">
+        <apex:chart height="400" width="700" data="{!Data}">
+            <apex:axis minimum="0" type="Numeric" position="left" fields="percentageScore" 
+                title="Score %" grid="true"/>
+            <apex:axis type="Category" position="bottom" fields="appName" 
+                title="Applications"/>
+            <apex:barSeries orientation="vertical" axis="left" 
+                xField="appName" yField="percentageScore">
+                <apex:chartTips height="25" width="150"/>
+            </apex:barSeries>
+        </apex:chart>
+    </apex:pageBlockSection>
+    <apex:pageBlockTable value="{!applicationList}" var="appGoal">
+        <apex:column headerValue="Application Name">
+           <apex:outputField value="{!appGoal.CCA2_Application__r.Name}"/> 
+        </apex:column>
+        <apex:column headerValue="Total % Score">
+            {!appGoal.Total_X_Score__c}%
+        </apex:column>
+    </apex:pageBlockTable>
+</apex:pageBlock>
+</apex:page>

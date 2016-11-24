@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Application Goal</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Application Goals</value>
+    </caseValues>
+    <fields>
+        <label><!-- AccountID --></label>
+        <name>AccountID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account Name --></label>
+        <name>Account_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Application Name --></label>
+        <name>Application_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- CCA2_Account Goal --></label>
+        <name>CCA2_Account_Goal__c</name>
+        <relationshipLabel><!-- Application Goals --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- CCA2_Application --></label>
+        <name>CCA2_Application__c</name>
+        <relationshipLabel><!-- Application Goals --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Completed --></label>
+        <name>Completed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Exclude --></label>
+        <name>Exclude__c</name>
+    </fields>
+    <fields>
+        <help><!-- Goal for the application --></help>
+        <label><!-- Goal Name --></label>
+        <name>Goal_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of Answered Questions --></label>
+        <name>Number_of_Answered_Questions_Formula__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of Answered Questions --></label>
+        <name>Number_of_Answered_Questions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Score --></label>
+        <name>Total_Score__c</name>
+    </fields>
+    <fields>
+        <help><!-- The final percentage match for this application to this goal --></help>
+        <label><!-- Total % Score --></label>
+        <name>Total_X_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- Unique Id --></label>
+        <name>Unique_Id__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

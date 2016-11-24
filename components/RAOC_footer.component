@@ -1,0 +1,34 @@
+<apex:component >
+<style>
+html, body {
+  height: 100%;
+}
+
+#wrap {
+ 
+   padding-top:0px
+   margin-top:0px;
+}
+
+#main {
+  overflow:auto;
+  padding-bottom:150px; /* this needs to be bigger than footer height*/
+}
+
+.footer {
+  position: relative;
+  margin-top: -0px; /* negative value of footer height */
+  height:auto;
+  clear:both;
+  padding-top:20px;
+} 
+</style>
+
+ 
+ <div class="footer" style="color:#fff" id="footercolor">
+      <div class="container">
+        <p class="text-muted" style="color:#fff" align="center">
+        </p>
+      </div>
+    </div>
+</apex:component>

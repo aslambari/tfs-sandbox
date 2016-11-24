@@ -1,0 +1,96 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" controller="SiteContactHandler">
+    <c:SiteHeader vfname="contactus"></c:SiteHeader>    
+    </div>
+    <style>
+    .errorMsg{
+        color:red;
+    }
+    </style>
+     
+         <div id="main" style="padding:0px;">
+         <!-- .box1 -->
+         <apex:outputPanel rendered="{!NOT(leadSaved)}">
+                <apex:form >
+     <div class="mainContent">
+        <div class="section">
+            <div class="box1">
+                <div class="left-top-corner">
+                <div class="right-top-corner">
+                  <div class="right-bot-corner">
+                    <div class="left-bot-corner">
+                      <div class="inner">
+          
+                        
+                            <fieldset style="border:1px solid #e6e6e6;background-color:white;background-image:url('{!URLFOR($Resource.theforcesolutionimages,'theforcesolutionimages/contactus.gif')}');background-repeat:no-repeat;background-position:top right">
+                            <legend style="font-weight:bold;font-size:18px;font-family:arial">Contact Form</legend>
+                            <div class="col-1">
+                                <font style="font-family:Geneva, Arial, Helvetica, sans-serif;
+                                   font-size:10px; font-size:15px">
+                        <table>
+                            <tr>
+                                <td class="tableLabel"><label>First Name:</td><td><apex:inputField value="{!newLead.FirstName}"/> </label><br/></td>
+                            </tr>
+                            <tr>
+                                <td class="tableLabel"><label>Last Name:</td><td><apex:inputField value="{!newLead.LastName}"/> </label><br/></td>
+                            </tr>
+                            <tr>
+                                <td class="tableLabel"><label>E-mail:</td><td><apex:inputField value="{!newLead.Email}"/> </label><br/></td>
+                            </tr>
+                            <tr>
+                                <td class="tableLabel"><label>Phone:</td><td><apex:inputField value="{!newLead.Phone}"/> </label><br/></td>
+                            </tr>
+                            <tr>    
+                                <td class="tableLabel">Message:</td><td><textarea cols="38" rows="5" ></textarea><br/></td>
+                             </tr>
+                          </table>
+                                <div class="alignright"><apex:commandButton action="{!saveLead}" value="Save" styleclass="btn"/></div>
+                                </font>
+                              </div>      
+                                
+                                
+                              </div>                        
+                           </fieldset>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.box1 -->
+             
+         <!-- .box -->
+              <div>
+                <table style="width:40%;background-color:white;border:1px solid #e6e6e6;font-family:arial;">
+                <tr>
+                <td>
+                    <img src="{!URLFOR($Resource.theforcesolutionimages,'theforcesolutionimages/contactus_down.gif')}" />
+                </td>
+                <td>
+                <b>The Force Solution</b><br/> 
+                4100 Fulton St, Ste 1<br/>
+                             San Francisco<br/>
+                             CA 94121<br/>
+                             Telephone:(415) 506-8873<br/>
+                             E-mail: <a href="#">sales@theforcesolution.com</a>
+                </td>
+                </tr>
+                </table>
+              </div>
+              <!-- /.box -->
+              <br/>
+  
+                
+            </apex:form>
+            </apex:outputPanel>
+            <apex:outputLabel rendered="{!leadSaved}">
+                <center>
+                <div style="font-family:arial;font-size:16px;font-weight:bold;">Thanks for contact. </div>
+                </center>
+            </apex:outputLabel>
+         </div>
+        </div>
+        </div>
+         <br/>
+       <c:SiteFooter / >
+</apex:page>

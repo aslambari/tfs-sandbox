@@ -1,0 +1,206 @@
+<apex:page controller="QuestionDetailsController" action="{!initQuestionDetails}" sidebar="false" tabStyle="CCA2_Question__c" id="myPage">
+    <!--Page Section Header-->
+    <apex:sectionHeader title="Question:" subtitle="{!quesObj.Name}"/>
+    
+    <!--Importing Script For Dialog Box Starts-->
+    <apex:stylesheet value="{!URLFOR($Resource.jqueryUi, 'themes/jquery-ui.theme.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.jqueryUi, 'themes/jquery-ui.theme.min.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.jqueryUi, 'themes/jquery-ui.structure.min.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.jqueryUi, 'themes/jquery-ui.structure.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.jqueryUi, 'themes/jquery-ui.min.css')}"/>
+    <script src="{!URLFOR($Resource.jqueryUi, 'jquery-1.10.2.js')}"></script>
+    <script src="{!URLFOR($Resource.jqueryUi, 'ui/jquery.ui.core.js')}"></script>
+    <script src="{!URLFOR($Resource.jqueryUi, 'ui/jquery.ui.widget.js')}"></script>
+    <script src="{!URLFOR($Resource.jqueryUi, 'ui/jquery.ui.mouse.js')}"></script>
+    <script src="{!URLFOR($Resource.jqueryUi, 'ui/jquery.ui.sortable.js')}"></script>
+    <script src="{!URLFOR($Resource.jqueryUi, 'ui/jquery.ui.draggable.js')}"></script>
+    <script src="{!URLFOR($Resource.jqueryUi, 'ui/jquery.ui.position.js')}"></script>
+    <script src="{!URLFOR($Resource.jqueryUi, 'ui/jquery.ui.resizable.js')}"></script>
+    <script src="{!URLFOR($Resource.jqueryUi, 'ui/jquery.ui.button.js')}"></script>
+    <script src="{!URLFOR($Resource.jqueryUi, 'ui/jquery.ui.dialog.js')}"></script>
+    <!--Importing Script For Dialog Box Ends-->
+    
+    <!--Script Starts-->
+    <script>
+        $(document).ready(function(){
+            var dlg = $("#editDiv").dialog({
+                        width:400,
+                        height:250,
+                        title:"Edit",
+                        autoOpen: false
+                        });
+            
+           dlg.parent().appendTo("#myPage\\:QuestionDetails");
+        });
+    
+        function divOpen() {
+            $("#editDiv").dialog("open");
+        } 
+        function divClose() {
+            $("#editDiv").dialog("close");
+        }
+        function refreshPage(){
+            //divClose();
+            window.location.href = '/apex/QuestionDetails?id={!quesObj.id}';
+        }
+    </script>
+    <!--Script Ends-->
+    
+    <!--Style Starts-->
+    <style>
+        #disableDiv{
+            width:100%;
+            height:100%;
+            top:0px;
+            left:0px;
+            position:fixed;
+            z-index:500;
+            background:#000;
+            opacity:0.4;
+            display:none;
+        }
+        .diaClass{
+            z-index:1000;
+        }
+        
+        .dv_load{
+            top: 45%;
+            margin-left:25%;
+            padding: 15px;
+            z-index: 20000;
+            position: fixed;
+            width: 20%;
+            background-color: #ccd8e7;
+            border: 5px solid #afc3e0;
+            color: #394057;
+        }
+        .buttonclass{
+            background-image: -webkit-linear-gradient(top,#428bca 0,#2d6ca2 100%) !important;
+            background-image: -o-linear-gradient(top,#428bca 0,#2d6ca2 100%) !important;
+            background-image: -webkit-gradient(linear,left top,left bottom,from(#428bca),to(#2d6ca2)) !important;
+            background-image: linear-gradient(to bottom,#428bca 0,#2d6ca2 100%) !important;
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff428bca', endColorstr='#ff2d6ca2', GradientType=0) !important;
+            color: #FFF !important;
+            padding: 10PX !important;
+        }
+        .btn:hover{
+            background-position: 0 !important;
+            color:white;
+        }
+    </style>
+    <!--Style Ends-->
+
+    <!--Apex Page Message-->
+    <apex:pageMessages />
+
+    <!--Form Starts-->
+    <apex:form id="QuestionDetails" rendered="{!error}">
+        <!--Action Status Starts-->
+        <apex:actionStatus id="status">
+            <apex:facet name="start">
+                <div style="width: 100%; height:700px; background:#000; opacity : 0.7; top:0px; left:0px; position: fixed; z-index:10000"></div>
+                <div class="dv_load">
+                    <img src="/img/loading24.gif" style="vertical-align:middle;"/>
+                    <span style="margin-left: 10px; font-size: 12px; font-weight: bold; color: #000000;">Loading...</span>
+                </div>
+            </apex:facet>
+        </apex:actionStatus>
+        <!--Action Status Ends-->
+        <!--Action Function Starts-->
+        <apex:actionFunction status="status" name="fillDialog" action="{!valuesForDialog}" rerender="refreshMe" oncomplete="divOpen(); return false;">
+            <apex:param name="param1" assignTo="{!editGoalId}" value=""/>
+            <apex:param name="param2" assignTo="{!editAnswerIds}" value=""/>
+            <apex:param name="param3" assignTo="{!selectedGoalName}" value=""/>
+        </apex:actionFunction>
+        <!--Action Function Ends-->
+        <!--Table Starts-->
+        <table width="100%" cellspacing="0">
+            <!--Table Header Starts-->
+            <tr>
+                <th><center>Answers</center></th>
+                <apex:repeat value="{!showGoal}" var="goalDetails">
+                    <th>
+                    <center>{!goalDetails.goal.Name}</center>
+                    <center><apex:commandButton style="margin-bottom: 5px;width: 40px;" value="Edit" onclick="fillDialog('{!goalDetails.goal.id}','{!goalDetails.answerIdList}','{!goalDetails.goal.Name}'); return false;"/>&nbsp;&nbsp;
+                        <apex:commandButton status="status" rerender="myPage" style="margin-bottom: 5px;" value="Remove" action="{!removeScore}">
+                              <apex:param name="p1" assignTo="{!editGoalId}" value="{!goalDetails.goal.id}"/>
+                        </apex:commandButton>
+                    </center>
+                    </th>
+                </apex:repeat>
+            </tr>
+            <!--Table Header Ends-->
+            
+            <!--Table Body Starts-->
+            <apex:repeat value="{!detailsList}" var="details">
+                <tr>
+                    <apex:outputPanel rendered="{!quesObj.Type__c == 'Picklist'}">
+                        <td align="center" style="width:150px;">{!details.answer.PicklistResponse__c}<br/>
+                        {!details.answer.Answer_Details__c}</td>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!quesObj.Type__c == 'Number'}">
+                        <td align="center" style="width:150px;">{!details.answer.High_Value__c} - {!details.answer.Low_Value__c}<br/>
+                        {!details.answer.Answer_Details__c}</td>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!quesObj.Type__c == 'Text'}">
+                        <td align="center" style="width:150px;">{!details.answer.Answer_Details__c}</td>
+                    </apex:outputPanel>
+                    <apex:repeat value="{!details.scoreList}" var="sL">
+                        <apex:outputPanel rendered="{!sL.Exclude__c == true}">
+                            <td align="center" style="width:150px;background-color:#F75D59;border: 1px solid black;vertical-align: middle;height: 50px;">{!sL.Score__c}</td>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!sL.Exclude__c == false && sL.id != null}">
+                            <td align="center" style="width:150px;background-color:#98FF98;border: 1px solid black;vertical-align: middle;height: 50px;">{!sL.Score__c}</td>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!sL.id == null}">
+                            <td align="center" style="width:150px;background-color:#B6B6B4;border: 1px solid black;vertical-align: middle;height: 50px;">{!sL.Score__c}</td>
+                        </apex:outputPanel>
+                    </apex:repeat>
+                </tr>
+            </apex:repeat>
+            <!--Table Body Ends-->
+        </table>
+        <!--Table Ends-->
+        
+        <!--Dialog Div Starts-->
+        <div id="editDiv">
+            <apex:outputPanel id="refreshMe">
+                <apex:outputText ><Font style="font-size: medium;"><b>Goal Name:</b> {!selectedGoalName}</Font></apex:outputText>
+                <!--Dialog Table Starts-->
+                <table width="100%" style="margin-top: 10px;">
+                    <!--Dialog Table Header Starts-->
+                    <tr>
+                        <th><center>Answer</center></th>
+                        <th><center>Score</center></th>
+                        <th><center>Exclude</center></th>
+                    </tr>
+                    <!--Dialog Table Header Ends-->
+                    <!--Dialog Table Body Starts-->
+                    <apex:repeat value="{!editScoreList}" var="scoreList">
+                        <tr>
+                            <td align="center">
+                            <apex:outputPanel rendered="{!quesObj.Type__c == 'Picklist'}">
+                                {!ansMap[scoreList.Answer__c].PicklistResponse__c}
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!quesObj.Type__c == 'Number'}">
+                                {!ansMap[scoreList.Answer__c].High_Value__c} - {!ansMap[scoreList.Answer__c].Low_Value__c}
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!quesObj.Type__c == 'Text'}">
+                                {!ansMap[scoreList.Answer__c].Answer_Details__c}
+                            </apex:outputPanel>
+                            </td>
+                            <td align="center"><apex:inputField style="width:50px;" value="{!scoreList.Score__c}"/></td>
+                            <td align="center"><apex:inputField value="{!scoreList.Exclude__c}"/></td>
+                        </tr>
+                    </apex:repeat>
+                    <!--Dialog Table Body Ends-->
+                </table>
+                <!--Dialog Table Ends-->
+                <apex:commandButton value="Save" styleClass="buttonclass" action="{!updateScore}" reRender="myPage"  status="status" />
+                <apex:commandButton value="Cancel" styleClass="buttonclass" onclick="divClose(); return false"/>
+            </apex:outputPanel>
+        </div>
+        <!--Dialog Div Ends-->
+    </apex:form>
+    <!--Form Ends-->
+</apex:page>
