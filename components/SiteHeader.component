@@ -1,6 +1,5 @@
 <apex:component >
 <apex:attribute name="vfname" type="String" description="currentPageName" default="home"/>
-<html>
 <head>
 <title>The Force Solution-Home</title>
 <link rel="SHORTCUT ICON" href="{!URLFOR($Resource.theforcesolutionimages,'theforcesolutionimages/favicon.png')}" />
@@ -11,9 +10,6 @@ margin:0px;
 }
 </style>
 </head>
-<body>
-<center>
-    <div id="header">
         <div class="inside1" >
             <a href="#" class="logo" style="padding-left:50px;"><img src="{!URLFOR($Resource.theforcesolutionimages,'theforcesolutionimages/orlogo.gif')}" alt="" width="250" height="100" /></a>                                                                                                                           
             <p class="slogan" style="font-size:12px;font-family:verdana;"><I>&quot;&nbsp;Better, &nbsp;Cheaper, &nbsp;Faster &nbsp;- Pick &nbsp;Any &nbsp;3 &nbsp;&quot;</I></p>

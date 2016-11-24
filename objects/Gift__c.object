@@ -159,26 +159,6 @@
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
-    <fields>
-        <fullName>Test_2_Jenkins__c</fullName>
-        <externalId>false</externalId>
-        <label>Test 2 Jenkins</label>
-        <length>100</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Test_Field_For_Jenkins__c</fullName>
-        <externalId>false</externalId>
-        <label>Test Field For Jenkins</label>
-        <length>100</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
     <label>Gift</label>
     <listViews>
         <fullName>All</fullName>

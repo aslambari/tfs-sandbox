@@ -449,14 +449,4 @@ public class HomeController{
         public integer index {get;set;}
     }
    
-   
-   //Added by aslam to test jenkins changes
-   public class MyTestJenkins{
-       public string abc {get;set;}
-   }
-   
-   //Added by aslam to test2 jenkins changes
-   public class MyTestJenkins2{
-       public string abc2 {get;set;}
-   }
 }
