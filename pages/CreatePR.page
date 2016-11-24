@@ -1,6 +1,0 @@
-<apex:page standardController="Case" extensions="CreatePRController" tabstyle="Case" action="{!CreatePR}">
-<apex:sectionHeader title="Case" subtitle="{!currentCase.subject}" />
-<div> « <a href="/{!currentCase.Id}">Back to:  Case</a></div>
-<!-- <meta http-equiv="refresh" content="1;url=/{!currentCase.Id}"/> -->
-<apex:PageMessages />
-</apex:page>

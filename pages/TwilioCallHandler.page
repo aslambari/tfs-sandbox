@@ -1,6 +1,0 @@
-<apex:page contentType="text/xml" controller="TwilioCallHandler" action="{!doInit}">
-<Response>
-    <Dial>{!phoneNumber}</Dial>
-    <Say>Hello I am here {!phoneNumber}</Say>
-</Response>
-</apex:page>
