@@ -1,0 +1,75 @@
+<apex:page id="pg" standardStylesheets="false" action="{!initForRegisterReceivedGift}" showHeader="false" cache="false" controller="HomeController" >
+<c:RAOC_Header > </c:RAOC_Header>
+<title>Purchased Gifts</title>
+<apex:form id="frm">
+<apex:actionFunction action="{!giftReceived}" name="giftReceived" reRender="frm">
+    <apex:param value="" name="st" assignTo="{!giftReceivedId}" />
+</apex:actionFunction>
+<style>
+
+ .form-signin{
+       max-width: 380px;
+       padding: 0% 0%;
+       margin: 0 auto;
+      background-color: #fff;
+      
+  .form-signin-heading,
+    .checkbox {
+      margin-bottom: 30px;
+  } 
+  .nav navbar-nav navbar-right li :hover {
+    background-color:#222;
+    border-color: #333;
+    }
+</style>
+<div class="container-fluid"  style="padding:5% ;background-color:#FFF">
+      <div class="row"  >
+        <div class="col-md-8 col-md-offset-2">   
+            <h2 class="h2">Purchased Gifts</h2>   
+              <div class="table-responsive" style="padding-top:2%" id="childtype">
+               <table class="table ">
+                    <tr style="background-color:#2A94D6">
+                        <th style="color:#fff;background-color:#2A94D6">Select</th>
+                        <th style="color:#fff;background-color:#2A94D6">Gift</th>
+                        <th style="color:#fff;background-color:#2A94D6">Gift Value</th>
+                        <th style="color:#fff;background-color:#2A94D6">Expected Delivery Date</th>
+                        
+                    </tr>
+                    <apex:repeat value="{!listGift}" var="rrg">
+                    <apex:outputPanel rendered="{!rrg.Status__c == 'Reported as Purchased'}">
+                        <tr>
+                            <td>
+                                <apex:commandButton value="Received" onclick="giftReceived('{!rrg.id}');return false;" styleClass="btn btn-primary"/>
+                            </td>
+                            <td>{!rrg.name}</td>
+                            <td>{!rrg.Gift_Value__c}</td>
+                            <td>
+                                <apex:outputText value="{0, date, MMMM d','  yyyy}">
+                                    <apex:param value="{!rrg.Expected_Delivery__c}" /> 
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!rrg.Status__c == 'Received'}">
+                        <tr style="background-color:#BDFFBD">
+                            <td>
+                                
+                            </td>
+                            <td>{!rrg.name}</td>
+                            <td>{!rrg.Gift_Value__c}</td>
+                            <td>
+                                <apex:outputText value="{0, date, MMMM d','  yyyy}">
+                                    <apex:param value="{!rrg.Expected_Delivery__c}" /> 
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                    </apex:outputPanel>
+                    </apex:repeat>
+                </table>                       
+              </div>
+          </div> 
+       </div>           
+</div>
+</apex:form>
+<c:RAOC_footer > </c:RAOC_footer>   
+</apex:page>

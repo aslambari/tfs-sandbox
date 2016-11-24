@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Comments__c</fullName>
+        <label>Comments</label>
+        <length>32000</length>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Day__c</fullName>
+        <label>Day</label>
+        <required>true</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Developer__c</fullName>
+        <label>Developer</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Time Cards</relationshipLabel>
+        <relationshipName>Time_Cards1</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+    </fields>
+    <fields>
+        <fullName>Hours__c</fullName>
+        <label>Hours</label>
+        <precision>4</precision>
+        <required>true</required>
+        <scale>1</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Month_Ending__c</fullName>
+        <label>Month Ending</label>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Project_Request__c</fullName>
+        <label>Project Request</label>
+        <referenceTo>Project_Request__c</referenceTo>
+        <relationshipLabel>Time Cards</relationshipLabel>
+        <relationshipName>Time_Cards</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Week_Ending__c</fullName>
+        <description>The date of the friday of the week</description>
+        <label>Week Ending</label>
+        <required>true</required>
+        <type>Date</type>
+    </fields>
+    <label>Time Card</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Project_Request__c</columns>
+        <columns>Developer__c</columns>
+        <columns>Week_Ending__c</columns>
+        <columns>Comments__c</columns>
+        <columns>Hours__c</columns>
+        <columns>Day__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>TC-{000000}</displayFormat>
+        <label>Time Card Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Time Cards</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

@@ -1,0 +1,29 @@
+<apex:page sidebar="false" showHeader="false">
+    <c:SiteHeader vfname="whatwedo"></c:SiteHeader>
+    <div id="main">
+    <table style="color:#64584C;font-family:Tahoma;padding:20px;">
+              <tr>
+                  <td style="text-align:left;width:250px;vertical-align:top;">
+                  </td>
+                  <td>
+                        <div style="text-align:left;width:100%;vertical-align:top;"> 
+                                <h3>How We Succeed</h3>
+                                <p>The 3 key roles required for a successful technical implementation of business processes are</p>
+                        <ul>
+                        <li>Business Analyst:  Someone with intimate knowledge of the processes to be automated and with access to timely decision making.</li>
+                        
+                        <li>Solution Architect: Someone with strong system design skills, an intimate knowledge of Salesforce, and the ability to understand the business domain.</li>
+                        
+                        <li>Developer: An expert on the myriad technical features of Salesforce and a strong coder.<br /><br />
+                        
+                         The first role must belong to the business.  The 3rd role is best filled by people who have many projects of experience on the target system. The middle role should be someone who can bridge the gap between the first and 3rd role.  Who can code and understands the technology and who understands the process required to translate your business processes to the target platform.  </li>
+                        </ul>
+                        <p>The Force Solution has experts in the latter 2 roles.  We've worked on many projects.  We have, on average, over 10 years of development experience and we have worked exclusively on the Salesforce platform for the past 2 years, believing it to be the safest and most cost effective development platform for automating business processes today.  In that time we've worked on many successful projects utilizing a simple, trusted methodology that begins with helping customers understand the scope and cost of the implementation they have in mind.  We believe that during this process you'll see for yourself why we are the right team for the project.</p>
+                        </div>
+                    </td>
+              </tr>
+      </table>
+      </div>
+        
+    <c:SiteFooter / >
+</apex:page>

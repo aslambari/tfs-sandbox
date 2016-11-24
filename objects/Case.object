@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Actual_Hours__c</fullName>
+        <label>Actual Hours</label>
+        <precision>4</precision>
+        <scale>1</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Comments__c</fullName>
+        <label>Customer Comments</label>
+        <length>32000</length>
+        <type>LongTextArea</type>
+        <visibleLines>8</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Level_of_Effort__c</fullName>
+        <label>Estimated Level of Effort</label>
+        <precision>4</precision>
+        <scale>1</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Priority_Flag__c</fullName>
+        <formula>IMAGE(CASE( Priority, &quot;Low&quot;, &quot;/img/samples/light_green.gif&quot;, &quot;Medium&quot;, &quot;/img/samples/light_yellow.gif&quot;, &quot;High&quot;, &quot;/img/samples/light_red.gif&quot;,&quot;/img/samples/light_red.gif&quot;),&quot;Current Status&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>This is a sample formula field that displays a traffic light based on the case&apos;s priority.</inlineHelpText>
+        <label>Priority Flag</label>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Project__c</fullName>
+        <label>Project</label>
+        <referenceTo>Project__c</referenceTo>
+        <relationshipLabel>Cases</relationshipLabel>
+        <relationshipName>Cases</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Severity__c</fullName>
+        <label>Severity</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Critical (can&apos;t use the software)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Severe (important functionality failing)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medium (it makes me unhappy)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cosmetic (please fix when convenient)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TFS_Comments__c</fullName>
+        <label>TFS Comments</label>
+        <length>32000</length>
+        <type>LongTextArea</type>
+        <visibleLines>8</visibleLines>
+    </fields>
+    <recordTypes>
+        <fullName>Bug</fullName>
+        <active>true</active>
+        <label>Bug</label>
+        <picklistValues>
+            <picklist>Origin</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medium</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason</picklist>
+            <values>
+                <fullName>Complex functionality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Existing problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Instructions not clear</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New problem</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Severity__c</picklist>
+            <values>
+                <fullName>Cosmetic %28please fix when convenient%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Critical %28can%27t use the software%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medium %28it makes me unhappy%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Severe %28important functionality failing%29</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Feature Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Question</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Requirement</fullName>
+        <active>true</active>
+        <label>Requirement</label>
+        <picklistValues>
+            <picklist>Origin</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medium</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason</picklist>
+            <values>
+                <fullName>Complex functionality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Existing problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Instructions not clear</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Feature</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New problem</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Severity__c</picklist>
+            <values>
+                <fullName>Cosmetic %28please fix when convenient%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Critical %28can%27t use the software%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medium %28it makes me unhappy%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Severe %28important functionality failing%29</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Feature Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Question</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>test</fullName>
+        <active>true</active>
+        <label>test</label>
+        <picklistValues>
+            <picklist>Origin</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medium</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason</picklist>
+            <values>
+                <fullName>Complex functionality</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Existing problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Instructions not clear</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New problem</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Severity__c</picklist>
+            <values>
+                <fullName>Cosmetic %28please fix when convenient%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Critical %28can%27t use the software%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medium %28it makes me unhappy%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Severe %28important functionality failing%29</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Feature Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Problem</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Question</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <webLinks>
+        <fullName>Create_PR</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Create PR</masterLabel>
+        <openType>sidebar</openType>
+        <page>CreatePR</page>
+        <protected>false</protected>
+    </webLinks>
+</CustomObject>

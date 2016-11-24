@@ -1,0 +1,93 @@
+<apex:page standardStylesheets="false" cache="false" showHeader="false" controller="RegistrationController" action="{!initForRegistration}">
+  <!-- Page Header Part Start -->
+    <c:RAOC_Header > </c:RAOC_Header>
+    <title>Sign Up For RAOC</title>
+    <style>
+    .form-control{
+        width:100%;
+    }
+    #j_id0:j_id2:j_id3:j_id4{
+        padding:0px;
+        margin:0px;
+        background-color:#FFF;
+    }
+    .wrapper{
+     margin-top: 0px;
+     margin-bottom: 0px;
+    }
+    .form-signin{
+       max-width: 380px;
+       padding: 15px 35px 45px;
+       margin: 0 auto;
+      background-color: #fff;
+      border: 1px solid rgba(0,0,0,0.1);  
+  .form-signin-heading,
+    .checkbox {
+      margin-bottom: 30px;
+  }
+  .confirmM3 {
+        color: #8CB780 !important;
+    }
+  .confirmM3 h4 {
+        font-weight: bold !important;
+    }
+    
+    </style>
+    <!-- Page Header Part End -->
+    <body>      
+    <div class="container-fluid" style="padding:5% ;background-color:#FFF">
+        <!-- Page Menu Part Start -->
+      
+        <!-- Page Menu Part End -->                    
+        <!-- Page Slider Part Start -->   
+       
+    <div class="row" > 
+                 
+    <div class="col-md-6 col-md-offset-3" id="menu">
+        
+           
+       <div class="wrapper">    
+       <apex:form styleClass="form-signin">
+       <h2 class="form-signin-heading">Registration</h2>
+       <apex:pageMessages escape="false"/>
+      
+        <div class="form-group"  >            
+             <apex:inputText value="{!personObj.Name}"   html-placeholder="Name" styleClass="form-control"/>
+          
+        </div>
+         <div class="form-group"  >
+             <apex:inputText value="{!personObj.Reddit_Username__c}" html-placeholder="Reddit Username" styleClass="form-control" />
+            
+        </div>                
+        <div class="form-group"  >
+            <apex:inputText value="{!personObj.Email__c}"  html-placeholder="Email " styleClass="form-control" />
+           
+        </div>
+        <div class="form-group"  >
+            <apex:inputText value="{!personObj.Phone__c}"  html-placeholder="Phone" styleClass="form-control" />           
+        </div>
+        <div class="form-group"  >
+            <apex:inputText value="{!personObj.Wishlist_URL__c}"  html-placeholder="Wishlist URL" styleClass="form-control" />           
+        </div>
+        <div class="form-group"  >
+             <apex:inputSecret value="{!personObj.PasswordT__c}"  html-placeholder="Password " styleClass="form-control" />
+        </div>
+         <div class="form-group"  >
+           <apex:inputSecret value="{!confirmPassword}" html-placeholder="Confirm Password " styleClass="form-control" />
+        </div>
+        <apex:commandButton styleClass="btn btn-primary"  style="width:100%" value="Save" action="{!RegisterationOfReceiver}"/>      
+    </apex:form>
+    </div>
+    </div>
+    </div >               
+    </div>  
+      
+
+        <!-- Page Slider Part End -->      
+        
+        <!-- Page Footer Part Start -->         
+        <c:RAOC_footer > </c:RAOC_footer>         
+        <!-- Page Footer Part End -->    
+         
+    </body>
+</apex:page>

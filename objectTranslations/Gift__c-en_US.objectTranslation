@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <value>Gift</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Gifts</value>
+    </caseValues>
+    <fields>
+        <label><!-- Expected Delivery Date --></label>
+        <name>Expected_Delivery__c</name>
+    </fields>
+    <fields>
+        <label><!-- Gift Value --></label>
+        <name>Gift_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- Giver (Reddit Username) --></label>
+        <name>Giver_Reddit_Username__c</name>
+    </fields>
+    <fields>
+        <label><!-- IP Address --></label>
+        <name>IP_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Legacy Id --></label>
+        <name>Legacy_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Offer Comment --></label>
+        <name>Offer_Comment__c</name>
+    </fields>
+    <fields>
+        <label><!-- Receiver --></label>
+        <name>Receiver__c</name>
+        <relationshipLabel><!-- Gifts --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Received</masterLabel>
+            <translation><!-- Received --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Reported as Purchased</masterLabel>
+            <translation><!-- Reported as Purchased --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Suspicious --></label>
+        <name>Suspicious__c</name>
+    </fields>
+    <layouts>
+        <layout>Gift Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

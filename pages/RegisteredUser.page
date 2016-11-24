@@ -1,0 +1,58 @@
+<apex:page controller="RegisteredUserController" action="{!init}" >
+<title>Registered User</title>
+
+<apex:form id="frm">
+<apex:actionStatus id="frmStatus">
+<apex:facet name="start">
+    <div style=" opacity: 0.1;filter: alpha(opacity=40);width: 100%;height:700px;background:#000;opacity : 0.7;top:0px;left:0px;position: fixed;z-index:500; "></div>
+    <div class="status" style="background: none repeat scroll 0% 0% #DDD;
+        border: 1px solid #AAA;
+        border-radius: 2px;
+        
+        font-weight: bold;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: 0px 0px 15px 5px #DDD;
+        opacity: 1;
+        height: auto;
+        position: fixed;
+        padding: 15px;
+        z-index: 1000;
+        top: auto;
+        left: auto;
+        right: auto;
+        width: auto;
+        margin: 20% 35%;">
+        <img src="/img/loading24.gif" />
+    </div>
+</apex:facet>
+</apex:actionStatus>
+<apex:sectionHeader subtitle="Registered User" title="Receivers"/>
+<apex:pageblock >
+    <apex:pageblockTable value="{!listPerson }" var="clm" >
+                <apex:column headerValue="Reddit Username" value="{!clm.Reddit_Username__c }"/>
+    </apex:pageblockTable>
+    <div class="row" >
+        <div align="center" class="col-md-6 col-md-offset-3"   > 
+            <apex:commandLink style="text-decoration:none" rendered="{! offsetVar != 0 }" action="{!first}" value="First" reRender="frm" status="frmStatus"  />
+            <apex:outputText style="color: darkgray;" rendered="{! offsetVar == 0 }"  value="First"></apex:outputText>
+            
+            <apex:outputText style="padding-left:5px;padding-right:5px;font-size: 21px;font-weight: 700;" value="|"></apex:outputText>
+            
+            <apex:commandLink style="text-decoration:none" rendered="{! offsetVar != 0 }" action="{!prev}" value="Prev" reRender="frm" status="frmStatus"  />
+            <apex:outputText style="color: darkgray;" rendered="{! offsetVar == 0 }"  value="Prev "></apex:outputText>
+            
+            <apex:outputText style="padding-left:5px;padding-right:5px;font-size: 21px;font-weight: 700;" value="|"></apex:outputText>
+            
+            <apex:commandLink style="text-decoration:none" rendered="{! listSizeUnRec > offsetVar+10 }" action="{!next}" value="Next" reRender="frm" status="frmStatus" />
+            <apex:outputText style="color: darkgray;" rendered="{! listSizeUnRec <= offsetVar+10 }" value="Next" ></apex:outputText>
+            
+            <apex:outputText style="padding-left:5px;padding-right:5px;font-size: 21px;font-weight: 700;" value="|"></apex:outputText>
+            
+            <apex:commandLink style="text-decoration:none" rendered="{! listSizeUnRec > offsetVar+10 }" action="{!last}" value="Last" reRender="frm" status="frmStatus" />
+            <apex:outputText style="color: darkgray;" rendered="{! listSizeUnRec <= offsetVar+10 }" value="Last" ></apex:outputText>
+        </div>
+    </div>
+</apex:pageblock>
+</apex:form>
+</apex:page>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Creator_Email__c</fullName>
+        <label>Creator Email</label>
+        <type>Email</type>
+    </fields>
+    <recordTypes>
+        <fullName>FlipCard</fullName>
+        <active>true</active>
+        <label>FlipCard</label>
+    </recordTypes>
+</CustomObject>

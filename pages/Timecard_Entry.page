@@ -1,0 +1,46 @@
+<apex:page id="tc" standardController="Time_Card__c" extensions="TimeCardEntryController" >
+  
+    <apex:pageBlock title="Enter Hours Worked" id="pbEntry">
+	  <apex:form >
+         <apex:pageBlockSection id="pbsShowCards" rendered="true" columns="1" title="Time Cards From The Current Week">  
+         	 <apex:actionFunction name="getTimeCards" action="{!retrieveTimeCards}" rerender="pbsShowCards"/>
+             
+         	<apex:inputField value="{!newTimeCard.Developer__c}" onchange="getTimeCards()"/>
+           	<apex:inputField value="{!newTimeCard.Week_Ending__c}" onchange="getTimeCards()"/>
+             <apex:pageBlockSectionItem >
+	         	 <apex:commandButton value="Save Time Cards" action="{!saveTimeCards}" rerender="pbsShowCards"/> 
+             </apex:pageBlockSectionItem>
+	         <apex:pageBlockTable value="{!timeCards}" var="timeCard" >
+	         	<apex:column headerValue="Name" style="width:100px">
+	         		<apex:outputLink value="/{!timeCard.id}">{!timeCard.name} 
+	         		</apex:outputLink>
+	            </apex:column>
+	            <apex:column headerValue="Date" style="width:200px">
+		            <apex:inputField value="{!timeCard.Day__c}"/>
+	            </apex:column>
+	            <apex:column headerValue="Project Request" style="width:200px">
+		            <apex:outputLink value="/{!timeCard.Project_Request__c}">{!timeCard.project_request__r.name} 
+	         		</apex:outputLink>
+	            </apex:column>
+	            <apex:column headerValue="Hours" style="width:50px">
+		            <apex:inputField value="{!timeCard.Hours__c}"/>
+	            </apex:column>
+	            <apex:column headerValue="Comments" style="width:200px">
+		            <apex:inputField value="{!timeCard.Comments__c}"/> 
+	            </apex:column> 
+	         </apex:pageBlockTable>
+	         
+         </apex:pageBlockSection>
+       </apex:form>
+       <apex:form >  
+         <apex:pageBlockSection id="pbsAddCard" columns="1" title="Add A New Time Card">
+         	<apex:inputField value="{!newTimeCard.Day__c}"/>
+         	<apex:inputField value="{!newTimeCard.Project_Request__c}"/>
+         	<apex:inputField value="{!newTimeCard.Hours__c}"/>
+         	<apex:inputField value="{!newTimeCard.Comments__c}"/>
+         	<apex:commandButton value="Add Time Card" action="{!addTimeCard}" rerender="pbsShowCards,pbsAddCard"/>
+         </apex:pageBlockSection>
+	   </apex:form>
+   </apex:pageBlock>
+
+</apex:page>

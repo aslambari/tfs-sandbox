@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <fields>
+        <fullName>Account__c</fullName>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipName>CCA2_Account_Goals</relationshipName>
+        <relationshipOrder>1</relationshipOrder>
+        <type>MasterDetail</type>
+    </fields>
+    <fields>
+        <fullName>CCA2_Goal__c</fullName>
+        <label>CCA2_Goal</label>
+        <referenceTo>CCA2_Goal__c</referenceTo>
+        <relationshipLabel>Accounts</relationshipLabel>
+        <relationshipName>CCA2_Account_Goals</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+    </fields>
+    <fields>
+        <fullName>Unique_Id__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <label>Unique Id</label>
+        <length>80</length>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <label>Account Goal</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Account__c</columns>
+        <columns>CCA2_Goal__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>All1</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>{00000000}</displayFormat>
+        <label>CCA2_Account Goal Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Account Goals</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Account__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CCA2_Goal__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CREATEDBY_USER</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CREATED_DATE</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <webLinks>
+        <fullName>Apps_By_Goal</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>url</linkType>
+        <masterLabel>Apps By Goal</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>/apex/AppsByGoal?goalid={!CCA2_Account_Goal__c.CCA2_GoalId__c}&amp;accid={!CCA2_Account_Goal__c.AccountId__c}</url>
+    </webLinks>
+</CustomObject>

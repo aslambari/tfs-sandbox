@@ -1,0 +1,19 @@
+<apex:page controller="SiteExpertiseController">
+  <table>
+      <tr>
+          <td>
+              <!-- Left Heading Sections -->
+              <apex:repeat value="{!allExpertise}" var="exp">
+                  <div>
+                      <b>{!exp.Name}</b><br/>
+                      {!exp.Tag__c}
+                  </div>
+              </apex:repeat>
+          </td>
+          <td>
+              <!-- Right Details Section -->
+              {!selectedExpertise.Details__c}
+          </td>
+      </tr>
+  </table>
+</apex:page>

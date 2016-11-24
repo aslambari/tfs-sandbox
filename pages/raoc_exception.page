@@ -1,0 +1,26 @@
+<apex:page standardStylesheets="false" showHeader="false" title="{!$Label.site.error2}" cache="false">
+<c:RAOC_Header > </c:RAOC_Header>
+<div class="container-fluid"  style="padding:5% ;background-color:#FFF">
+    <div class="row" >
+        <div class="col-md-6 col-md-offset-3"   > 
+            <div class="row" style="border: 1px solid rgb(179, 38, 44);border-radius: 12px;">
+                <div class="col-md-3"   > 
+                    <apex:image url="{!URLFOR($Resource.SiteSamples, 'img/clock.png')}"/>
+                </div> 
+                <div class="col-md-9"   > 
+                    <div class="row" >
+                        <div class="col-md-2" >
+                            <apex:image url="{!URLFOR($Resource.SiteSamples, 'img/warning.gif')}" style="margin-top: 23px;"/>
+                        </div> 
+                        <div class="col-md-10" >
+                            <h3>Error:</h3>
+                            <h5>Stay tuned. Please <a href="mailto:randomactsofxmas@gmail.com">email us</a> if you need to get in touch.</h5>
+                        </div> 
+                    </div> 
+                </div>
+            </div>    
+        </div> 
+    </div> 
+</div>      
+<c:RAOC_footer > </c:RAOC_footer> 
+</apex:page>

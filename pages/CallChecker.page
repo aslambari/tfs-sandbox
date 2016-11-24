@@ -1,0 +1,20 @@
+<apex:page controller="CallChecker" sidebar="false" showHeader="false">
+  <apex:form >
+      <apex:actionFunction action="{!callagain}" name="callagain" reRender="renderArea"/>
+      <apex:actionFunction action="{!handledcall}" name="handledcall" rerender="renderArea"/>
+  </apex:form>
+  <apex:outputPanel id="renderArea">
+  <script>
+      setTimeout("callstart()",1000)
+      function callstart(){
+          if("{!contactId}" == ""){
+              callagain();
+          }else{
+              window.open("/{!contactId}","ContactWindow","menubar=1,resizable=1,width=550,height=550");
+              handledcall();
+          }
+      }
+  </script>
+  </apex:outputPanel>
+  <apex:image value="{!$Resource.twiliophone}" />
+</apex:page>

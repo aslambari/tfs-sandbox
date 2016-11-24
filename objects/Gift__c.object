@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <fields>
+        <fullName>Expected_Delivery__c</fullName>
+        <label>Expected Delivery Date</label>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Gift_Value__c</fullName>
+        <label>Gift Value</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Giver_Reddit_Username__c</fullName>
+        <label>Giver (Reddit Username)</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>IP_Address__c</fullName>
+        <label>IP Address</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Legacy_Id__c</fullName>
+        <label>Legacy Id</label>
+        <length>20</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Offer_Comment__c</fullName>
+        <label>Offer Comment</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Receiver__c</fullName>
+        <label>Receiver</label>
+        <referenceTo>Person__c</referenceTo>
+        <relationshipLabel>Gifts</relationshipLabel>
+        <relationshipName>Gifts</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Reported as Purchased</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Received</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Suspicious__c</fullName>
+        <defaultValue>false</defaultValue>
+        <label>Suspicious</label>
+        <type>Checkbox</type>
+    </fields>
+    <label>Gift</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Giver_Reddit_Username__c</columns>
+        <columns>Receiver__c</columns>
+        <columns>Gift_Value__c</columns>
+        <columns>Expected_Delivery__c</columns>
+        <columns>Status__c</columns>
+        <columns>Offer_Comment__c</columns>
+        <columns>Suspicious__c</columns>
+        <columns>IP_Address__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Gift Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Gifts</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Expected_Delivery__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Gift_Value__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>IP_Address__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Offer_Comment__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Receiver__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Suspicious__c</customTabListAdditionalFields>
+        <searchResultsAdditionalFields>Expected_Delivery__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Gift_Value__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>IP_Address__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Offer_Comment__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Suspicious__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Child__c</fullName>
+        <label>Child</label>
+        <referenceTo>Person__c</referenceTo>
+        <relationshipLabel>Gifts Reported (Child)</relationshipLabel>
+        <relationshipName>Gifts_Reported1</relationshipName>
+        <relationshipOrder>1</relationshipOrder>
+        <type>MasterDetail</type>
+    </fields>
+    <fields>
+        <fullName>Gift_Value__c</fullName>
+        <label>Gift Value</label>
+        <precision>18</precision>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Gift__c</fullName>
+        <label>Gift</label>
+        <referenceTo>Gift__c</referenceTo>
+        <relationshipLabel>Gifts Reported</relationshipLabel>
+        <relationshipName>Gifts_Reported</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+    </fields>
+    <label>Gift Reported</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Child__c</columns>
+        <columns>Gift__c</columns>
+        <columns>Gift_Value__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>GR-{00000}</displayFormat>
+        <label>Gift Reported</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Gifts Reported</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>
